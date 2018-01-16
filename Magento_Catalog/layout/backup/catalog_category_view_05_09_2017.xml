@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+			<link src="js/layered.js"/>
+	</head>
+	<body>
+		<referenceContainer name="main.content" htmlTag="div" htmlClass="content"></referenceContainer>
+		<referenceContainer name="columns" htmlClass="content-container">
+			<container name="category.new"  htmlTag="div" htmlClass="category" after="breadcrumbs" before="-">
+				<block class="Magento\Catalog\Block\Category\View" name="cat.ttl" template="cat-ttl.phtml"  />
+				<container name="category__content.new"  htmlTag="div" htmlClass="category__content clearfix" >
+				<block class="Magento\Catalog\Block\Category\View" name="sidebar.wrpr" template="sidebar-wrapper.phtml">
+					<!--<block class="Magento\Catalog\Block\Navigation" name="catalog.navigation.left" before="-" template="navigation/left.phtml"/>-->
+					<block class="Magento\Cms\Block\Block" name="cat-banner">
+						<arguments>
+							<argument name="block_id" xsi:type="string">cat-banner</argument>
+						</arguments>
+					</block>
+				</block>
+				</container>
+			</container>
+		</referenceContainer>
+		<container name="main" label="Main Content Container" htmlTag="main" htmlClass=""/>
+		<move element="div.sidebar.main" destination="category.new" />
+		<move element="main" destination="category__content.new" />
+		<move element="catalog.leftnav" destination="sidebar.wrpr" />
+		<referenceBlock name="page.main.title" remove="true" />
+		<referenceContainer name="columns.top">
+		<referenceBlock name="page.main.title" remove="true" />
+		<referenceBlock name="category.view.container" remove="true" />
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\Catalog\Block\Category\View" name="category.products" template="Magento_Catalog::category/products.phtml">
+                <block class="Magento\Catalog\Block\Product\ListProduct" name="category.products.list" as="product_list" template="Magento_Catalog::product/list.phtml">
+
+				   <container name="category.product.list.additional" as="additional" />
+                    <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+                        <block class="Magento\Framework\View\Element\Template" as="default"/>
+
+                    </block>
+                    <block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
+                        <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
+                        <!-- The following code shows how to set your own pager increments -->
+                        <!--
+                            <action method="setDefaultListPerPage">
+                            <argument name="limit" xsi:type="string">4</argument>
+                        </action>
+                        <action method="setDefaultGridPerPage">
+                            <argument name="limit" xsi:type="string">3</argument>
+                        </action>
+                        <action method="addPagerLimit">
+                            <argument name="mode" xsi:type="string">list</argument>
+                            <argument name="limit" xsi:type="string">2</argument>
+                        </action>
+                        <action method="addPagerLimit">
+                            <argument name="mode" xsi:type="string">list</argument>
+                            <argument name="limit" xsi:type="string">4</argument>
+                        </action>
+                        <action method="addPagerLimit">
+                            <argument name="mode" xsi:type="string">list</argument>
+                            <argument name="limit" xsi:type="string">6</argument>
+                        </action>
+                        <action method="addPagerLimit">
+                            <argument name="mode" xsi:type="string">list</argument>
+                            <argument name="limit" xsi:type="string">8</argument>
+                        </action>
+                        <action method="addPagerLimit" translate="label">
+                            <argument name="mode" xsi:type="string">list</argument>
+                            <argument name="limit" xsi:type="string">all</argument>
+                            <argument name="label" xsi:type="string">All</argument>
+                        </action>
+                        <action method="addPagerLimit">
+                            <argument name="mode" xsi:type="string">grid</argument>
+                            <argument name="limit" xsi:type="string">3</argument>
+                        </action>
+                        <action method="addPagerLimit">
+                            <argument name="mode" xsi:type="string">grid</argument>
+                            <argument name="limit" xsi:type="string">6</argument>
+                        </action>
+                        <action method="addPagerLimit">
+                            <argument name="mode" xsi:type="string">grid</argument>
+                            <argument name="limit" xsi:type="string">9</argument>
+                        </action>
+                        <action method="addPagerLimit" translate="label">
+                            <argument name="mode" xsi:type="string">grid</argument>
+                            <argument name="limit" xsi:type="string">all</argument>
+                            <argument name="label" xsi:type="string">All</argument>
+                        </action>
+                        -->
+                    </block>
+                    <action method="setToolbarBlockName">
+                        <argument name="name" xsi:type="string">product_list_toolbar</argument>
+                    </action>
+                </block>
+            </block>
+            <block class="Magento\Cookie\Block\RequireCookie" name="require-cookie" template="Magento_Cookie::require_cookie.phtml">
+                <arguments>
+                    <argument name="triggers" xsi:type="array">
+                        <item name="compareProductLink" xsi:type="string">.action.tocompare</item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <move element="category.new" destination="columns"  before="-" after="breadcrumbs"/>
+		<!-- <move element="breadcrumbs" destination="columns" after="-"/> -->
+		<referenceContainer name="breadcrumbs" remove="true"/>
+		<referenceContainer name="div.sidebar.additional" remove="true"/>
+    </body>
+</page>

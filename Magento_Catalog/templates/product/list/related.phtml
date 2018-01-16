@@ -1,0 +1,65 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/* @var $block \Magento\Catalog\Block\Product\AbstractProduct */
+?>
+
+<?php
+		if ($exist = $block->getItems()->getSize()) {
+            $type = 'related';
+            $class = $type;
+
+            $image = 'related_products_list';
+            $title = __('Related Products');
+            $items = $block->getItems();
+            $limit = 0;
+            $shuffle = 0;
+            $canItemsAddToCart = $block->canItemsAddToCart();
+
+            $showWishlist = true;
+            $showCompare = true;
+            $showCart = false;
+            $templateType = null;
+            $description = false;
+        }
+
+?>
+
+<?php if ($exist): $objectManager = \Magento\Framework\App\ObjectManager::getInstance();?>
+		
+		<div class="product__check-names"><span>
+		 <?php 
+		  $i=0;
+		  foreach ($items as $_item): 
+		  //if($i==0) $attr = $_item->getResource()->getAttribute('color'); 
+		  $_product = $objectManager->get('Magento\Catalog\Model\Product')->load($_item->getId());
+		  //echo  strtolower($attr->getSource()->getOptionText($_product->getData('color')));
+			$textColor=$_product->getData('text_color');
+			if($textColor){
+				echo $textColor;
+				if($i<sizeof($items)-1) echo '/';
+			}	
+		  $i++;
+		  endforeach ?>
+		</span></div>
+        
+		  
+			<div class="product__check-wrp">               
+                <?php foreach ($items as $_item): ?>
+					<?php $productImage = $block->getImage($_item, 'related_products_list') ?>
+					<?php $productImage->setTemplate('Magento_Catalog::product/image.phtml') ?>				
+					<label>
+						<a href="<?php echo $block->getProductUrl($_item) ?>">
+							<?php echo $productImage->toHtml() ?>
+						</a>
+					</label>  
+                 <?php endforeach ?>	
+            </div>
+        
+ 
+<?php endif;?>

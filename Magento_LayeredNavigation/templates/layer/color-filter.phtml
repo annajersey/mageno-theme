@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Template for filter items block
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation\FilterRenderer
+ */
+?>
+<div class="sort-form__colorpick">
+
+    <?php foreach ($filterItems as $filterItem): ?>
+        
+            <?php if ($filterItem->getCount() > 0): ?>
+				<a class="color <?php echo str_replace(' ','-',strtolower($filterItem->getLabel()));  ?>" href="<?php echo $block->escapeUrl($filterItem->getUrl()) ?>"></a>
+            <?php endif; ?>
+       
+    <?php endforeach ?>
+
+</div>

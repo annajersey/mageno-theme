@@ -1,0 +1,71 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * Category layered navigation
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation
+ */
+?>
+
+
+<div class="layered-filter-block">
+	<?php if ($block->canShowBlock()): ?>
+		<?php echo $block->getChildHtml('state') ?>
+	<?php endif ?>
+	<?php echo $block->getChildHtml('category') ?>
+</div>
+<?php if ($block->canShowBlock()): ?>
+	<div class="block  sort-form" id="layered-filter-block" data-mage-init='{"collapsible":{"openedState": "active", "collapsible": true, "active": false, "collateral": { "openedState": "filter-active", "element": "body" } }}'>
+		<?php $filtered = count($block->getLayer()->getState()->getFilters()) ?>
+		<div class="block-content filter-content">
+			<?php if (false && $block->getLayer()->getState()->getFilters()): ?>
+				<div class="block-actions filter-actions">
+					<a href="<?php /* @escapeNotVerified */ echo $block->getClearUrl() ?>" class="action clear filter-clear"><span><?php /* @escapeNotVerified */ echo __('Clear All') ?></span></a>
+				</div>
+			<?php endif; ?>
+			<?php $wrapOptions = false; ?>
+			<?php  $controllerName = $this->getRequest()->getControllerName();?>
+			<?php foreach ($block->getFilters() as $filter): ?>
+				<?php if ($filter instanceof \Magento\CatalogSearch\Model\Layer\Filter\Category ||
+							$filter instanceof \Magento\Catalog\Model\Layer\Filter\Category): ?>
+
+					<?php continue; ?>
+				<?php endif ?>
+				<?php if ($filter->getItemsCount()): ?>
+					<?php if (!$wrapOptions): ?>
+						<strong role="heading" aria-level="2" class="block-subtitle filter-subtitle"><?php /* @escapeNotVerified */ echo __('Shopping Options') ?></strong>
+						<div class="filter-options" id="narrow-by-list" data-role="content" data-mage-init='{"accordion":{"openedState": "active", "collapsible": true, "active": false, "multipleCollapsible": false}}'>
+					<?php  $wrapOptions = true; endif; ?>
+					<div data-role="collapsible" class="sort-form__select form-control filter-options-item">
+						<div data-role="title" class="select-wrapper"><?php /* @escapeNotVerified */ echo __($filter->getName()) ?></div>
+						<div data-role="content" class="filter-options-content"><?php /* @escapeNotVerified */
+
+						if($filter->getData('attribute_model') && $filter->getAttributeModel()->getData('attribute_code')=='color')
+							echo $block->getChildBlock('color-renderer')->render($filter);
+						else
+							echo $block->getChildBlock('renderer')->render($filter);
+						?></div>
+					</div>
+				<?php endif; ?>
+			<?php endforeach; ?>
+			<?php if ($wrapOptions): ?>
+				</div>
+			<?php else: ?>
+				<script>
+					require([
+						'jquery'
+					], function ($) {
+						$('#layered-filter-block').addClass('filter-no-options');
+					});
+				</script>
+			<?php endif; ?>
+		</div>
+	</div>
+<?php endif ?>

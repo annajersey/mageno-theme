@@ -1,0 +1,122 @@
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+<style>
+.foot-search.alert.alert-dismissable {
+    background: url('//www.kidcitystores.com/newsletter-popup-bg.jpg');
+    padding: 0;
+    background-position-y: bottom;
+    background-size: auto;
+       background-repeat-y: no-repeat;
+    background-repeat-x: repeat;
+    max-width: 800px;
+    left: 50%;
+    top: 50%;
+    -ms-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+.foot-search__wrp.clearfix {
+    border: none;
+	  padding-bottom: 6%;
+}
+button.foot-search__close {
+    background-color: #ee4d3e;
+	height: 50px;
+    width: 50px;
+	    font-size: 40px;
+    font-weight: 600;
+    top: -15px;
+    right: -15px;
+}
+.newsletter-popup-header
+{
+	background:#ffffff;
+	    padding: 4% 0;
+	  
+}
+.newsletter-popup-header-inner
+{
+	  width: 150px;
+    margin: 0 auto;
+}
+form#newsletter-validate-detail {
+    width: 100%;
+	 margin-top: 15px;
+}
+.newsletter-popup-body {
+    text-align: center;
+}
+.newsletter-popup-body h1 {
+    font-family: "ImpactRegular";
+    color: #ee3e41;
+    outline: #ffffff;
+    -webkit-text-stroke-color: #ffffff;
+    -webkit-text-stroke-width: 2px;
+    font-size: 6em;
+    text-transform: uppercase;
+	    letter-spacing: 4px;
+}
+.newsletter-popup-body h3
+{
+	    font-family: 'Source Sans Pro', sans-serif;
+    text-transform: uppercase;
+   word-spacing: 4px;
+}
+input#newsletter {
+    font-size: 15px;
+}
+input#newsletter, #newsletter-validate-detail button
+{
+	height:45px;
+	    vertical-align: middle;
+}
+
+@media screen and (max-width: 1073px)
+{	
+	.newsletter-popup-body h1 {
+		font-size: 4em !important;;
+	}
+
+}
+
+@media screen and (max-width: 767px)
+{
+	.newsletter-popup-body h3 {
+    font-size: 1.2em;
+}
+	
+}
+
+</style>
+<div class="newsletter-popup-header">
+	<div class="newsletter-popup-header-inner">
+		<img src="//www.kidcitystores.com/pub/media/logo/default/KidsCity_Logo_1_3.jpg" alt="kidscity-logo">
+	</div>
+</div>
+<div class="foot-search__wrp clearfix ">
+		<div class="newsletter-popup-body">
+			
+		<h3>enter your email and get</h3>
+		<h1>20% off</h1>
+            <button class="foot-search__close" type="button" data-dismiss="alert" aria-label="Close"><i class="icon-close" aria-hidden="true"></i></button>
+            
+    
+
+			<form class="form subscribe"
+				novalidate
+				action="<?php /* @escapeNotVerified */ echo $block->getFormActionUrl() ?>"
+				method="post"
+				data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+				id="newsletter-validate-detail">
+					<input name="email" type="email" id="newsletter"
+									placeholder="<?php /* @escapeNotVerified */ echo __('Your email address') ?>"
+									data-validate="{required:true, 'validate-email':true}"/><button title="<?php /* @escapeNotVerified */ echo __('Subscribe') ?>" type="submit" id="newsletter-signup">
+						<?php echo __('Sign-up') ?>
+					</button>
+			</form>
+		
+		</div>
+      </div>
+</div>
+<div id="overlaylbi"></div>		
+

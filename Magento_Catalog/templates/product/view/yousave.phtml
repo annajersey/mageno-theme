@@ -1,0 +1,11 @@
+<?php 
+$_product=$block->getProduct();
+					$special =  $_product->getFinalPrice();
+					$basep =   $_product->getPrice();
+					
+					if($basep>$special){
+					
+					$percent = round(100*$special/$basep);
+					echo '<span class="product__price-save">('.__('you save').' '.$percent.'%)</span>';
+					}
+					?>

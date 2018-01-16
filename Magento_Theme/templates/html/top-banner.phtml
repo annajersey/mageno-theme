@@ -1,0 +1,12 @@
+<div role="alert" class="top-banner alert alert-dismissable">
+          <div class="container">
+            <?php if($block->showTextMessage()): ?>
+                <!--<p>You're <span style="color:#ff0000;"><?= $block->priceToFreeShip(); ?></span> away from free shipping!
+                    <a href="<?php echo $this->getBaseUrl(); ?>latests">Explore today's dealt</a>
+                    <button aria-label="Close" data-dismiss="alert" type="button" class="top-banner__close"><i aria-hidden="true" class="icon-close"></i></button>
+                </p>-->
+                <p><?= $block->textForBanner(); ?></p>
+            <?php endif; ?>
+
+          </div>
+</div>

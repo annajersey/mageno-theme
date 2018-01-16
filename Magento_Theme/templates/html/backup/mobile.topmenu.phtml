@@ -1,0 +1,36 @@
+<?php
+$items = $block->getTopMenuCollection();
+$logo = $this->getChildBlock('mobile.logo')->getLogoSrc();  ?>
+<nav class="nav-mobile">
+    <ul data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
+        <?php foreach($items as $item): ?>
+            <li>
+                <?php
+                $block = $this->getLayout()->createBlock('Magestore\Megamenu\Block\Item')->setItem($item);
+                if ($block->getCategoryCollection()->count()) { ?>
+                    <a>
+                        <?php echo $item->getNameMenu() ?>
+                    </a>
+                    <ul>
+                    <?php
+                        $block = $this->getLayout()->createBlock('Magestore\Megamenu\Block\Item')->setItem($item);
+                        $levels = array();
+                        foreach ($block->getCategoryCollection() as $child) {
+                            //if ($child->getLevel() != 3) { continue; }
+                            $levels[$child->getLevel()][] = '<li><a href="'.$child->getUrl().'">'.$child->getName().'</a></li>'."\n";
+                        }
+                        $levels_id = array_keys($levels);
+                        $min_level = min($levels_id);
+                        echo implode('', $levels[$min_level]);
+                    ?>
+                    </ul>
+                <?php } else { ?>
+                    <a <?php if($item->getLink()):?> href="<?php echo $item->getLink();?>"<?php endif; ?>>
+                        <?php echo $item->getNameMenu() ?>
+                    </a>
+                <?php } ?>
+            </li>
+        <?php  endforeach;?>
+    </ul>
+</nav>
+</div>

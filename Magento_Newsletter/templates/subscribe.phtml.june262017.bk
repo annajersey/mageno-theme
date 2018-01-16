@@ -1,0 +1,21 @@
+<div class="foot-search__wrp clearfix">Be the first to know...
+            <button class="foot-search__close" type="button" data-dismiss="alert" aria-label="Close"><i class="icon-close" aria-hidden="true"></i></button>
+            
+    
+
+        <form class="form subscribe"
+            novalidate
+            action="<?php /* @escapeNotVerified */ echo $block->getFormActionUrl() ?>"
+            method="post"
+            data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+            id="newsletter-validate-detail">
+				<input name="email" type="email" id="newsletter"
+                                placeholder="<?php /* @escapeNotVerified */ echo __('Your email address') ?>"
+                                data-validate="{required:true, 'validate-email':true}"/><button title="<?php /* @escapeNotVerified */ echo __('Subscribe') ?>" type="submit" id="newsletter-signup">
+                    <?php echo __('Sign-up') ?>
+                </button>
+        </form>
+      </div>
+</div>
+<div id="overlaylbi"></div>		
+

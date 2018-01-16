@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+		<!--<link src="jquery.js"/>-->
+		<css src="css/bootstrap.min.css" />
+		<css src="css/owl.carousel.min.css" />
+		<css src="css/style.css" />
+		<css src="css/lbi.css" />
+		<css src="Magento_Swatches/css/swatches.css" />
+		<link src="js/owl.carousel.min.js"/>
+		<link src="js/index.min.js"/>
+		<link rel="icon" type="image/png" sizes="32x32" src="images/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="96x96" src="images/favicon-96x96.png" />
+		<link rel="icon" type="image/png" sizes="16x16" src="images/favicon-16x16.png" />
+	</head>
+</page>

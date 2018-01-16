@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <update handle="empty"/>
+    <referenceContainer name="pusher" after="-">
+		<!--<block class="Magento\Framework\View\Element\Template" name="top.banner" before="-" template="Magento_Theme::html/top-banner.phtml" />-->
+        <block class="Abovebits\TopBanner\Block\TopBanner" name="top.banner" before="-" template="Magento_Theme::html/top-banner.phtml" />
+        <container name="header.new.container" as="header_new_container" label="Page Header New"  htmlTag="header" htmlClass="header" before="main.content"/>
+		<!--  <container name="header.container" as="header_container" label="Page Header Container"  htmlTag="header" htmlClass="header" before="main.content"/>
+         --><container name="page.top" as="page_top" label="After Page Header" after="header.container"/>
+        <container name="footer-container" as="footer"  label="Page Footer Container" htmlTag="footer" htmlClass="footer" />
+		<block class="Magento\Framework\View\Element\Template" name="footer.social" before="ubscribe.container" template="Magento_Theme::html/footer-social.phtml" />
+		<container name="subscribe.container" as="subscribe.container" before="before.body.end" label="Subscribe Footer Container" htmlTag="div" htmlClass="alert alert-dismissable" />
+    </referenceContainer>
+   
+</layout>

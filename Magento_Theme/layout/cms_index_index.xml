@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <reference name="head">
+        <action method="setData"><key>title</key><value>Home</value></action>
+    </reference>
+    <body>
+        <referenceContainer name="main">
+			<container name="content.nobg" htmlTag="div" htmlClass="content--nobg">
+				<container name="content-container" htmlTag="div" htmlClass="content-container">
+					<block class="Magento\Cms\Block\Block" name="code-banner">
+						<arguments>
+							<argument name="block_id" xsi:type="string">code-banner</argument>
+						</arguments>
+					</block>
+					<block class="Magento\Cms\Block\Block" name="deals-carousel">
+						<arguments>
+							<argument name="block_id" xsi:type="string">deals-carousel</argument>
+						</arguments>
+					</block>
+					<block class="Magento\Cms\Block\Block" name="fast-shop">
+						<arguments>
+							<argument name="block_id" xsi:type="string">fast-shop</argument>
+						</arguments>
+					</block>
+					<block class="Magento\Cms\Block\Block" name="back-to-school">
+						<arguments>
+							<argument name="block_id" xsi:type="string">back-to-school</argument>
+						</arguments>
+					</block>
+					<block class="Magento\Cms\Block\Block" name="fall-wear">
+						<arguments>
+							<argument name="block_id" xsi:type="string">fall-wear</argument>
+						</arguments>
+					</block>
+					<block class="Magento\Cms\Block\Block" name="cat-carousel">
+						<arguments>
+							<argument name="block_id" xsi:type="string">cat-carousel</argument>
+						</arguments>
+					</block>
+				</container>	
+			</container>
+        </referenceContainer>
+		<referenceBlock name="page.main.title" display="false"/>
+    </body>
+</page>

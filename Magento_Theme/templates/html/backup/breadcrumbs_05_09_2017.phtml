@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php if (false && $crumbs && is_array($crumbs)) : ?>
+<div class="breadcrumb-k">
+    
+        <?php foreach ($crumbs as $crumbName => $crumbInfo) : ?>
+            
+            <?php if ($crumbInfo['link']) : ?>
+                <a href="<?php /* @escapeNotVerified */ echo $crumbInfo['link'] ?>" title="<?php echo $block->escapeHtml($crumbInfo['title']) ?>">
+                    <?php echo $block->escapeHtml($crumbInfo['label']) ?>
+                </a><span>/</span>
+            <?php elseif ($crumbInfo['last']) : ?><strong><?php echo $block->escapeHtml($crumbInfo['label']) ?></strong>
+            <?php else: ?>
+                <?php echo $block->escapeHtml($crumbInfo['label']) ?>
+            <?php endif; ?>
+            
+        <?php endforeach; ?>
+    
+</div>
+<?php endif; ?>

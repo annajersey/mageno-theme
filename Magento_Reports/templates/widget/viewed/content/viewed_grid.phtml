@@ -1,0 +1,65 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * @var $block \Magento\Reports\Block\Product\Viewed
+ */
+?>
+<?php
+if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedProducts()->getSize())) {
+    $type = 'widget-viewed';
+    $mode = 'grid';
+
+    $type = $type . '-' . $mode;
+
+    $image = 'recently_viewed_products_grid_content_widget';
+    $title = __('Recently Viewed');
+    $items = $block->getRecentlyViewedProducts();
+
+    $showWishlist = true;
+    $showCompare = true;
+    $showCart = true;
+    $rating = 'short';
+    $description = ($mode == 'list') ? true : false;
+}
+?>
+<?php if ($exist):?>
+   <div class="content-container">
+        <div class="common-head">
+            <h2><?php /* @escapeNotVerified */ echo $title; ?></h2>
+        </div>
+        <div class="cat-carousel">
+            
+                <ul>
+                    <?php $iterator = 1; ?>
+                    <?php foreach ($items as $_item): ?>
+				
+                        <li>
+							<div class="cat-item test-3">
+									  <div class="cat-item__img--lowmargin-top"><a href="<?php  echo $_item->getProductUrl() ?>"> <?php $productImage = $block->getImage($_item, 'category_page_list'); ?>
+								 <?php $productImage->setTemplate('Magento_Catalog::product/image.phtml'); ?>
+								 <?php echo $productImage->toHtml(); ?></a></div>
+									  <div class="cat-item__name"><a href="<?php  echo $_item->getProductUrl() ?>"><?php echo $block->escapeHtml($_item->getName()) ?></a></div>
+									  <a  class="shop-now-button" href="<?php  echo $_item->getProductUrl() ?>"><?php echo __('Shop Now') ?></a>
+									<div class="cat-item__new"><?php /* @escapeNotVerified */ echo $block->getProductPriceHtml(
+										$_item,
+										\Magento\Catalog\Pricing\Price\FinalPrice::PRICE_CODE,
+										\Magento\Framework\Pricing\Render::ZONE_ITEM_LIST,
+										[
+											'price_id_suffix' => '-' . $type
+										]
+									) ?></div>
+							</div>
+                        </li>
+                    <?php endforeach ?>
+                </ul>
+        </div>
+    </div>
+<?php endif;?>

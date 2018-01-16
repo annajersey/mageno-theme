@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * Category layered navigation state
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation\State
+ */
+?>
+<?php $_filters = $block->getActiveFilters() ?>
+<?php if (!empty($_filters)): ?>
+<div class="filter-current state-filter-block">
+    <strong class="block-subtitle filter-state-subtitle" ><?php /* @escapeNotVerified */ echo __('Your selection') ?></strong>
+	<?php foreach ($_filters as $_filter): ?>
+		<div class="state-filter-item">
+			<?php /* @escapeNotVerified */ echo $block->stripTags($_filter->getLabel()) ?>
+			<a class="action remove" href="<?php /* @escapeNotVerified */ echo $_filter->getRemoveUrl() ?>"  title="<?php /* @escapeNotVerified */ echo __('Remove') ?>"></a>
+		</div>
+	<?php endforeach ?>
+</div>
+<?php endif ?>

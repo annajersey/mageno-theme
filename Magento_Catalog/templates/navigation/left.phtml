@@ -1,0 +1,112 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Category left navigation
+ *
+ * @var $block \Magento\Catalog\Block\Navigation
+ */
+?>
+<?php if (!$block->getCategory()) {
+    return;
+} ?>
+<?php $mainCat = $_category = $block->getCategory() ?>
+<?php $_parent = null ?>
+<?php if($_category->getId()==25):
+
+$_category = $_category->getParentCategory();
+$_categories = $_category->getChildrenCategories();
+ ?>
+<?php elseif($_category->getLevel() > 2) : ?>	
+	<?php $_category = $_category->getParentCategory() ?>
+	<?php if($_category->getLevel() > 2) : ?>
+		<?php $_parent = $_category->getParentCategory() ?>
+	<?php endif  ?>
+	<?php $_categories = $_category->getChildrenCategories() ?>
+<?php else :  ?>
+	<?php $_categories = $block->getCurrentChildCategories() ?>
+<?php endif  ?>
+<?php $_count = is_array($_categories) ? count($_categories) : $_categories->count(); ?>
+<?php if ($_count || $_parent): ?> 
+<div class="block  sort-form" id="layered-filter-block2" data-mage-init='{"collapsible":{"openedState": "active", "collapsible": true, "active": false, "collateral": { "openedState": "filter-active", "element": "body" } }}'> 
+	<div class="category-filter-block block-content filter-content">
+	<div class="filter-options" >
+	
+	
+	<div data-role="collapsible" class="sort-form__select form-control filter-options-item">
+	<div data-role="title" class="select-wrapper"><?php /* @escapeNotVerified */ echo __('Categories') ?></div>
+	
+        <div data-role="content" class="filter-options-content category-filter-list" id="category-filter-list">
+		
+			<?php if ($_parent && $_parent->getIsActive()): ?>
+					<div class="category-item">
+						<a href="<?php /* @escapeNotVerified */ echo $block->getCategoryUrl($_parent) ?>" class="category-back">
+							<?php /* @escapeNotVerified */ echo __('Up') ?>
+						</a>										
+					</div>			
+			<?php endif  ?>
+			<?php foreach ($_categories as $_category): ?>
+					<?php if ($_category->getIsActive()): ?>
+						<div class="category-item" data-role="collapsible">
+							<?php if (!$_category->hasChildren()): ?>
+								<a href="<?php /* @escapeNotVerified */ echo ($mainCat->getId()==25) ?  '?cat='.$_category->getId() : $block->getCategoryUrl($_category) ?>"
+									<?php if ($block->isCategoryActive($_category)): ?> class="current"<?php endif ?>>
+									<?php echo $block->escapeHtml($_category->getName()) ?>
+									<span class="count"><?php /* @escapeNotVerified */ echo $_category->getProductCount() ?></span>
+								</a>							
+							<?php else : ?>
+								<span data-role="trigger"<?php if ($block->isCategoryActive($_category)): ?> class="current"<?php endif ?>>
+									<?php echo $block->escapeHtml($_category->getName()) ?>
+									<span class="count"><?php /* @escapeNotVerified */ echo $_category->getProductCount() ?></span>
+								</span>							
+								<?php $_children = $_category->getCategories($_category->getId()) ?>
+								<div class="category-children" data-role="content">
+									<a href="<?php /* @escapeNotVerified */ echo ($mainCat->getId()==25) ?  '?cat='.$_category->getId() : $block->getCategoryUrl($_category) ?>">
+										<?php /* @escapeNotVerified */ echo __('Shop All') ?>
+									</a>
+									<?php $_childNumber = 1 ?>
+									<?php foreach ($_children as $_child): ?>
+										<?php if ($_child->getIsActive()): ?>
+										   <a href="<?php /* @escapeNotVerified */ echo ($mainCat->getId()==25) ?  '?cat='.$_child->getId() : $block->getCategoryUrl($_child) ?>"
+												class="<?php if ($block->isCategoryActive($_child)): ?> current<?php endif ?><?php if ($_childNumber > 7): ?> child-hidden child-hidden-<?php echo $_category->getId() ?><?php endif ?>">
+												<?php echo $block->escapeHtml($_child->getName()) ?>
+												<span class="count"><?php /* @escapeNotVerified */ echo $_child->getProductCount() ?></span>
+											</a>
+											<?php $_childNumber++ ?>
+										<?php endif ?>	
+									<?php endforeach ?>
+									<?php if ($_childNumber > 7): ?>
+										<a href="javascript:return false;" id="child-show-<?php echo $_category->getId() ?>" class="child-show">
+											<?php /* @escapeNotVerified */ echo __('View All') ?>
+										</a>
+									<?php endif ?>									
+								</div>
+							<?php endif ?>					
+						</div>
+					<?php endif ?>
+			<?php endforeach ?>
+        </div>
+		<script>
+			require([
+				'jquery',
+				'accordion'], function ($) {
+				$('#category-filter-list').accordion();
+				$('.child-show').click(function() {
+					console.log(this);
+					var id = $(this).attr('id').replace('child-show-', '');
+					console.log(id);
+					if (id) {
+						$('.child-hidden-' + id).css('display', 'block');
+					}
+				});				
+			});
+		</script>
+		</div>		
+    </div>
+	</div>
+<?php endif ?>

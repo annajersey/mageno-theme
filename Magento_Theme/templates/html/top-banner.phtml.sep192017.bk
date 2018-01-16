@@ -1,0 +1,7 @@
+<div role="alert" class="top-banner alert alert-dismissable">
+          <div class="container">
+            <p><span>free shipping</span> on orders over $75.&nbsp;<a href="<?php echo $this->getBaseUrl(); ?>shipping-policy">See Details</a>
+              <button aria-label="Close" data-dismiss="alert" type="button" class="top-banner__close"><i aria-hidden="true" class="icon-close"></i></button>
+            </p>
+          </div>
+</div>

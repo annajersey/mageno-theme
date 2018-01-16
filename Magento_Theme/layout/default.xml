@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link src="js/sticky-nav.js"/>
+        <link src="js/modal.js"/>
+    </head>
+    <body>
+        <block class="Magestore\Megamenu\Block\Megamenu" name="lbi.nav.mobile" template="Magento_Theme::html/mobile.topmenu.phtml"  after="-" >
+            <block class="Magento\Theme\Block\Html\Header\Logo" name="mobile.logo" />
+        </block>
+        <move element="lbi.nav.mobile" destination="page.wrapper"  />
+        <referenceContainer name="header.container" remove="true" />
+        <referenceContainer name="header.new.container" htmlClass="header">
+            <block class="Magento\Cms\Block\Block" name="klaviyo">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">klaviyo</argument>
+                </arguments>
+            </block>
+            <container name="header.top" label="Page Header Panel" htmlTag="div" htmlClass="header__top-block">
+                <block class="Magento\Theme\Block\Html\Header\Logo" name="logo">
+                    <arguments>
+                        <argument name="logo_img_width" xsi:type="number">102</argument>
+                        <argument name="logo_img_height" xsi:type="number">76</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Template" name="header.btn.mobile"  template="Magento_Theme::html/header-btn-mobile.phtml">
+                    <block class="Magento\Theme\Block\Html\Header\Logo" name="logo.mobile" />
+                </block>
+                <container name="header.actions" label="Page Header Actions" htmlTag="div" htmlClass="header__actions">
+                    <container name="header.login" label="Header Login" htmlTag="div" htmlClass="header__login">
+                    </container>
+                </container>
+            </container>
+        </referenceContainer>
+		<move element="breadcrumbs" destination="pusher" after="header.new.container"/>
+        <move element="logo" destination="header.actions" after="top.search"/>
+        <move element="top.search" destination="header.actions" before="logo"/>
+        <move element="header.login" destination="header.actions" after="logo"/>
+        <move element="header.panel" destination="header.login"  />
+        <move element="minicart" destination="header.actions" />
+        <move element="store.menu" destination="header.new.container" />
+        <referenceBlock name="copyright" remove="true" />
+        <move element="form.subscribe" destination="subscribe.container" />
+        <referenceBlock name="footer_links" remove="true" />
+        <referenceContainer name="footer-container" htmlTag="footer">
+            <block class="Magento\Cms\Block\Block" name="footer-block">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">footer</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <move element="content.new" destination="columns"  />
+        <referenceBlock name="shopbybrand-top-link" remove="true" />
+        <referenceBlock name="shopbybrand-header-link" remove="true" />
+    </body>
+</page>

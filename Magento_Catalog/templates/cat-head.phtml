@@ -1,0 +1,29 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');//get current category
+
+foreach ($category->getParentCategories() as $parent) {
+    $all_category [] = $parent->getName();
+}
+
+$reverse = array_reverse($all_category);
+
+$implode = implode(' > ', $reverse);
+
+
+$_page_config = $objectManager->get('Magento\Framework\View\Page\Config');
+
+$_meta_title = strip_tags($_page_config->getTitle()->getShort());
+
+$explode = explode('-' , $_meta_title);
+
+if(count($explode) > 1){
+    $title = $explode[1];
+}else{
+    $title = $explode[0];
+}
+?>
+<script>
+    var t = '<?php echo $implode . ' - ' . $title ?>';
+    document.title = t;
+</script>

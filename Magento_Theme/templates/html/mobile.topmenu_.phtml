@@ -1,0 +1,15 @@
+<?php $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
+<?php $_menu = $block->getHtml('level-top', 'submenu', $columnsLimit) ?>
+<?php $logo = $this->getChildBlock('mobile.logo')->getLogoSrc();  ?>
+<nav class="nav-mobile">
+        <div class="nav-mobile__header">
+		<img src="<?php echo $logo; ?>">
+		</div>
+       
+    <ul data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
+        <?php /* @escapeNotVerified */ echo $_menu; ?>
+		<li class="active"><a href="#">Sale</a></li>
+		<li class="active"><a href="#">Brand</a></li>
+    </ul>
+</nav>
+</div>

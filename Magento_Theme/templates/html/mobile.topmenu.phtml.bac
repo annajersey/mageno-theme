@@ -1,0 +1,28 @@
+<!-- <?php echo get_class($block); ?> -->
+<?php
+$items = $block->getTopMenuCollection();
+$logo = $this->getChildBlock('mobile.logo')->getLogoSrc();  ?>
+<nav class="nav-mobile">
+        <?php /* <div class="nav-mobile__header">
+		<img src="<?php echo $logo; ?>">
+		</div> */ ?>
+
+    <ul data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
+		<?php foreach($items as $item): ?>
+            <li>
+                <a <?php if($item->getLink()):?> href="<?php echo $item->getLink();?>"<?php endif; ?>>
+                    <?php echo $item->getNameMenu() ?>
+                    <!-- <?php 
+                    
+                    //$childs = $item->getMenuCollection();
+                    //foreach ($childs as $child) {
+                    //  echo $child->getNameMenu()."\n";
+                    //}
+                    
+                     ?> -->
+                </a>
+            </li>
+        <?php  endforeach;?>
+    </ul>
+</nav>
+</div>

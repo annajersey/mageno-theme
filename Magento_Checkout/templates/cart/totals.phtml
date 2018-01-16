@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Shopping cart totals template
+ * @var $block \Magento\Checkout\Block\Cart\Totals
+ */
+?>
+<div id="cart-totals" class="cart-totals" data-bind="scope:'block-totals'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+            {
+                "#cart-totals": {
+                    "Magento_Ui/js/core/app": <?php /* @escapeNotVerified */ echo $block->getJsLayout();?>
+                }
+            }
+    </script>
+</div>
+<?php
+$om = \Magento\Framework\App\ObjectManager::getInstance();
+$_helper = $om->create('Abovebits\TopBanner\Helper\Data');
+if($_helper->showTextMessage()):
+?>
+<div style="background: #EFEFEF;padding: 12px 5px;color:#000000;font-size: 15px; margin:15px 0 0;text-align: center" >
+    <!--You're <span style="color:#ff0000;"><?= $_helper->priceToFreeShip(); ?></span> away from <b>free shipping.</b>-->
+    <?= $_helper->textForWindow(); ?>
+</div>
+<?php endif; ?>

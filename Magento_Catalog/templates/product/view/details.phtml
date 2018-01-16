@@ -1,0 +1,41 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<div class="product-description clearfix">
+              
+             
+<?php if ($detailedInfoGroup = $block->getGroupChildNames('detailed_info', 'getChildHtml')):?>
+   
+        <?php $layout = $block->getLayout(); ?>
+			<ul class="tabs product-description__controls">
+			<?php foreach ($detailedInfoGroup as $key=>$name):
+				$alias = $layout->getElementAlias($name);
+                $label = $block->getChildData($alias, 'title'); ?>
+				<li <?php echo  $key==0 ? 'class="active"' : ''; ?>rel="<?php echo $alias; ?>"><span><?php echo $label; ?></span></li>
+            <?php endforeach;?>  
+			</ul>	
+			<div class="tab_container">
+            <?php foreach ($detailedInfoGroup as $key=>$name):?>
+                <?php
+					$alias = $layout->getElementAlias($name);
+					$label = $block->getChildData($alias, 'title');
+                    $html = $layout->renderElement($name);
+                    
+                   
+                ?>
+                <div class="tab_drawer_heading"  rel="<?php echo $alias; ?>"><span><?php echo $label; ?></span></div>
+                <div class="tab_content" id="<?php echo $alias; ?>">
+                  <div class="product-description__content">
+                    <?php echo $html; ?>
+                  </div>
+                </div>
+            <?php endforeach;?>
+			</div>
+<?php endif; ?>
+</div>

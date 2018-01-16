@@ -1,0 +1,89 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product view template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View
+ */
+?>
+<?php $_helper = $this->helper('Magento\Catalog\Helper\Output'); ?>
+<?php $_product = $block->getProduct(); 
+/*
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$sm = $objectManager->create('\Magento\Store\Model\StoreManagerInterface');
+$currencyCode = $sm->getStore()->getCurrentCurrency()->getCode();
+$currencyEntity = $objectManager->create('Magento\Directory\Model\Currency')->load($currencyCode);
+$currencySymbol = $currencyEntity->getCurrencySymbol();
+
+$scopeConfig = $objectManager->create('\Magento\Framework\App\Config\ScopeConfigInterface');
+$freeShippingMinAmount = $scopeConfig->getValue('carriers/freeshipping/free_shipping_subtotal', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+*/
+$om = \Magento\Framework\App\ObjectManager::getInstance();
+$_helper = $om->create('Abovebits\TopBanner\Helper\Data');
+?>
+
+
+    <form  class="product__checkout" action="<?php /* @escapeNotVerified */ echo $block->getSubmitUrl($_product) ?>" method="post"
+          id="product_addtocart_form"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+        <input type="hidden" name="product" value="<?php /* @escapeNotVerified */ echo $_product->getId() ?>" />
+        <input type="hidden" name="selected_configurable_option" value="" />
+        <input type="hidden" name="related_product" id="related-products-field" value="" />
+        <?php echo $block->getBlockHtml('formkey')?>
+        <?php echo $block->getChildHtml('form_top'); ?>
+        <?php if (!$block->hasOptions()):?>
+            <?php echo $block->getChildHtml('product_info_form_content'); ?>
+        <?php else:?>
+            <?php if ($_product->isSaleable() && $block->getOptionsContainer() == 'container1'):?>
+                <?php echo $block->getChildChildHtml('options_container') ?>
+            <?php endif;?>
+        <?php endif; ?>
+
+        <?php if ($_product->isSaleable() && $block->hasOptions() && $block->getOptionsContainer() == 'container2'):?>
+            <?php echo $block->getChildChildHtml('options_container') ?>
+        <?php else: ?>
+            <h4><?= __('Out of stock'); ?></h4>
+        <?php endif;?>
+        <?php echo $block->getChildHtml('form_bottom'); ?>
+    </form>
+	<!-- -->
+<div style="clear: both;"></div>
+<div class="sum_for_free-shipping" style="float:right;margin:-50px 0 0;text-align: right;font-size: 15px;">
+    <?= $_helper->textForWindow(); ?>
+</div>
+<div style="border-bottom: 1px solid #dadada;padding-top: 15px;margin-bottom: 10px;"></div>
+
+<script>
+    require([
+        'jquery',
+        'Magento_Catalog/js/price-box'
+    ], function($){
+        var priceBoxes = $('[data-role=priceBox]');
+
+        priceBoxes = priceBoxes.filter(function(index, elem){
+            return !$(elem).find('.price-from').length;
+        });
+
+        priceBoxes.priceBox({'priceConfig': <?php /* @escapeNotVerified */ echo $block->getJsonConfig() ?>});
+		
+		$('.swatch-attribute').each(function(index) {
+			var optionsLength = $(this).find('.swatch-option').length;
+			if (optionsLength == 1) {
+				$(this).find('.swatch-option').click();
+			}
+		});
+		
+	
+    });
+</script>
+<style>
+.sum_for_free-shipping a,
+.sum_for_free-shipping button{
+	display:none;	
+}
+</style>

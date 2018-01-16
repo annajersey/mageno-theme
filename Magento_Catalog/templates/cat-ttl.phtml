@@ -1,0 +1,26 @@
+<?php 
+	$_helper    = $this->helper('Magento\Catalog\Helper\Output');
+    $_category  = $block->getCurrentCategory();
+	$params = $block->getRequest()->getParams(); 
+	$title='';
+	if( $_category->getId()==2 and isset($params['brand']) and $params['brand']>0){
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		$eavConfig = $objectManager->get('\Magento\Eav\Model\Config');
+		$brand = $eavConfig->getAttribute('catalog_product', 'brand');
+		$options = $brand->getSource()->getAllOptions();
+		foreach($options as $option){
+			if($option['value']==$params['brand']){
+				$title=$option['label'];
+				break;
+			}
+		}
+		
+	}else{
+		$title = $block->escapeHtml($_category->getName());
+	}		
+    $_imgHtml   = '';
+    $_imgUrl = $_category->getImageUrl();
+	if(!$_imgUrl) $_imgUrl= $block->getViewFileUrl('images/flowers.jpg');
+	echo '<header style="background-image: url('.$_imgUrl.')"><h2>' . $title . '</h2></header>';
+   
+	

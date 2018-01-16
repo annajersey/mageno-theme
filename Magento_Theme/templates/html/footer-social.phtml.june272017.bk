@@ -1,0 +1,21 @@
+<div id="footer-social">
+	<div class="f-left">&copy <?= date('Y') ?> Kid City, Inc. All Rights Reserved</div>
+	<div class="f-right">
+		<!--<a class="facebook-logo" href="#"></a>-->
+		<a href="https://www.instagram.com/kidcitystores/?hl=en"><i class="icon-instagram" aria-hidden="true"></i></a>
+		<!--<a class="twitter-logo" href="#"></a>-->
+		<a class="totop" href="#"></a>
+	</div>
+</div>
+<script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">require(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us5.list-manage.com","uuid":"e63d3ec47059b6abdf6a36c8f","lid":"c5c2780cae"}) })</script>
+<!--BOF part/Layer -->
+<div id="overlay">
+    <div class="transBg"></div>
+    <div class="pageContainer">
+        <div class="close-pageLayer"><a class="close-layer" onclick="pageClose('#overlay');" aria-label="close">&times;</a></div>
+        <div class="pageLayer">
+            <div id="ajaxContent"></div>
+        </div>
+    </div>
+</div>
+<!--EOF part/Layer -->

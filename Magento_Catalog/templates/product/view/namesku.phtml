@@ -1,0 +1,20 @@
+<?php $product =  $block->getProduct(); ?>
+<?php if($product->getBrand()): ?> <p><a href="<?php echo $this->getBaseUrl() ?>products.html?brand=<?php echo $product->getBrand() ?>" title="<?php echo $product->getBrand() ?>"><?php echo $product->getAttributeText('brand');?></a></p><?php endif; ?>
+<h2><?php echo $product->getName(); ?></h2>
+<p><?php echo $product->getData('vendor_style'); ?></p>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$_page_config = $objectManager->get('Magento\Framework\View\Page\Config');
+$_meta_title = strip_tags($_page_config->getTitle()->getShort());
+
+$explode = explode('-' , $_meta_title);
+if(count($explode) > 1){
+    $title = end($explode);
+}else{
+    $title = $explode[0];
+}
+?>
+<script>
+    var t = '<?php echo $product->getName() . ' - ' . $title ?>';
+    document.title = t;
+</script>

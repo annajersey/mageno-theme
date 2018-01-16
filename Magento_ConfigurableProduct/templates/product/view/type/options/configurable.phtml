@@ -1,0 +1,40 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+
+<?php
+/** @var $block \Magento\ConfigurableProduct\Block\Product\View\Type\Configurable*/
+$_product    = $block->getProduct();
+$_attributes = $block->decorateArray($block->getAllowAttributes());
+?>
+<?php if ($_product->isSaleable() && count($_attributes)):?>
+    <?php foreach ($_attributes as $_attribute): ?>
+        <div class="select-wrapper field configurable required">
+         
+                <select name="super_attribute[<?php /* @escapeNotVerified */ echo $_attribute->getAttributeId() ?>]"
+                        data-validate="{required:true}"
+                        id="attribute<?php /* @escapeNotVerified */ echo $_attribute->getAttributeId() ?>"
+                        class="product__select form-control super-attribute-select" label="<?php echo ucfirst($block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel())); ?>">
+						<option selected="selected" value=""><?php echo ucfirst($block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel())); ?></option>
+				</select>
+            
+        </div>
+
+    <?php endforeach; ?>
+    <script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "configurable": {
+                    "spConfig": <?php /* @escapeNotVerified */ echo $block->getJsonConfig() ?>
+                }
+            }
+        }
+	</script>
+<?php endif;?>
+

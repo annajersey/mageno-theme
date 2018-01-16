@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+			<link src="js/layered.js"/>
+	</head>
+	<body>
+
+		<attribute name="class" value="page-products"/>
+		<referenceContainer name="main.content" htmlTag="div" htmlClass="content"></referenceContainer>
+		<referenceContainer name="columns" htmlClass="content-container">
+			<container name="category.new"  htmlTag="div" htmlClass="category" after="breadcrumbs" >
+				<container name="category__content.new"  htmlTag="div" htmlClass="category__content clearfix" >
+					<block class="Magento\Catalog\Block\Category\View" name="sidebar.wrpr" template="Magento_Catalog::sidebar-wrapper.phtml">
+						<!-- <block class="Magento\Catalog\Block\Navigation" name="catalog.leftnav" before="-" template="navigation/left.phtml"/> -->
+						<block class="Magento\Cms\Block\Block" name="cat-banner">
+							<arguments>
+								<argument name="block_id" xsi:type="string">cat-banner</argument>
+							</arguments>
+						</block>
+					</block>
+				</container>
+			</container>
+		</referenceContainer>
+		<container name="main" label="Main Content Container" htmlTag="main" htmlClass=""/>
+		<move element="div.sidebar.main" destination="category.new" />
+		<move element="main" destination="category__content.new" />
+		<move element="catalogsearch.leftnav" destination="sidebar.wrpr" />
+		<referenceContainer htmlTag="div" htmlClass="category" after="breadcrumbs" name="category.new"></referenceContainer>
+		<move element="breadcrumbs" destination="columns" before="-" />
+		<referenceBlock name="page.main.title" remove="true" />
+		<referenceContainer name="columns.top">
+			<referenceBlock name="page.main.title" remove="true" />
+			<referenceBlock name="category.view.container" remove="true" />
+		</referenceContainer>
+		<referenceContainer name="content">
+			<block class="Magento\CatalogSearch\Block\Result" name="search.result" template="result.phtml" cacheable="false">
+				<block class="Magento\CatalogSearch\Block\SearchResult\ListProduct" name="search_result_list" template="product/list.phtml" cacheable="false">
+					<arguments>
+						<!-- If argument's position depends on image size changeable in VDE:
+                        positions:list-secondary,grid-secondary,list-actions,grid-actions,list-primary,grid-primary
+                    -->
+						<argument name="positioned" xsi:type="string">positions:list-secondary</argument>
+					</arguments>
+					<block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="product/list/toolbar.phtml" cacheable="false">
+						<block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager" cacheable="false"/>
+					</block>
+					<action method="setToolbarBlockName">
+						<argument name="name" xsi:type="string">product_list_toolbar</argument>
+					</action>
+					<block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+						<block class="Magento\Framework\View\Element\Template" as="default"/>
+					</block>
+				</block>
+				<action method="setListOrders"/>
+				<action method="setListModes"/>
+				<action method="setListCollection"/>
+			</block>
+		</referenceContainer>
+
+		<referenceContainer name="div.sidebar.additional" remove="true"/>
+		
+    </body>
+</page>
